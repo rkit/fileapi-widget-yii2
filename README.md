@@ -210,6 +210,6 @@ use rkit\fileapi\Widget as FileApi;
    </li>
    ```
 
-## Theme for bootstrap
+## Theme for Bootstrap 3
 
 See in [assets/css/style.css](assets/css/style.css)
