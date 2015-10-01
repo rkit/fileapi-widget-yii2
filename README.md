@@ -198,7 +198,7 @@ use rkit\fileapi\Widget as FileApi;
    </div>
    ```
 
-3. **Item**
+3. **Template for uploaded a file**
 
    ```php
    <li>
