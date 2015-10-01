@@ -10,17 +10,44 @@ composer require rkit/fileapi-widget-yii2
 
 ## Usage
 
-### Basic usage
+```php
+use rkit\fileapi\Widget as FileApi;
+…
+<?= $form->field($model, $attribute, ['template' => "{label}\n{error}\n{input}\n{hint}"])
+    ->widget(FileApi::className(), [
+        'template' => '@app/modules/admin/views/shared/files/image-template',
+        'callbacks' => [
+            'select' => new JsExpression('function (evt, ui) {
+               …
+            }'),
+            'filecomplete' => [new JsExpression('function (evt, uiEvt) {
+               if (uiEvt.result.error) {
+                  …
+               } else {
+                  …
+               }
+            }'),
+        ]],
+        'settings' => [
+            'url' => yii\helpers\Url::toRoute('/url/to/upload'),
+            'imageSize' => ['minWidth' => 1000],
+            'accept' => 'image/*',
+            'duplicate' => true
+        ]
+    ]);
+?>
+```
 
-1. Form
+### Basic usage with [FileMananger](https://github.com/rkit/filemanager-yii2)
+
+1. **Form**
 
    ```php
    use rkit\fileapi\Widget as FileApi;
    …
-
-   $form->field($model, $attribute, ['template' => "{label}\n{error}\n{input}\n{hint}"])
+   <?= $form->field($model, $attribute, ['template' => "{label}\n{error}\n{input}\n{hint}"])
        ->widget(FileApi::className(), [
-           'template' => '@app/path/to/template',
+           'template' => '@app/modules/admin/views/shared/files/image-template',
            'callbacks' => [
                'select' => new JsExpression('function (evt, ui) {
                   var ufile = ui.files[0],
@@ -44,13 +71,18 @@ composer require rkit/fileapi-widget-yii2
            ]],
            'settings' => [
                'url' => yii\helpers\Url::toRoute([$attribute . '-upload']),
+               'imageSize' => $model->getFileRules($attribute)['imageSize'],
+               'accept' => implode(',', $model->getFileRules($attribute)['mimeTypes']),
                'duplicate' => true
            ]
        ])
-   );
+       ->hint($model->getFileRulesDescription($attribute), [
+           'class' => 'fileapi-rules'
+       ]);
+   ?>
    ```
 
-2. Template
+2. **Template**
 
    ```php
    <div id="<?= $selector; ?>" class="fileapi">
@@ -98,4 +130,83 @@ composer require rkit/fileapi-widget-yii2
    </div>
    ```
 
-### Gallery
+### Gallery with [FileMananger](https://github.com/rkit/filemanager-yii2)
+
+1. **Form**
+
+   ```php
+   use rkit\fileapi\Widget as FileApi;
+   …
+
+   <?= $form->field($model, $attribute, ['template' => "{error}\n{input}\n{hint}"])
+       ->widget(FileApi::className(), [
+           'template' => '@app/modules/admin/views/shared/files/gallery-template',
+           'preview' => false,
+           'callbacks' => [
+               'select' => new JsExpression('function (evt, ui) {
+                  if (ui && ui.other.length && ui.other[0].errors) {
+                    alert("'.Yii::t('app', 'Incorrect file format').': " + ui.other.map(function(v) { return v.name; }));
+                  }
+               }'),
+               'filecomplete' => new JsExpression('function (evt, uiEvt) {
+                  if (uiEvt.result.error) {
+                    alert(uiEvt.result.error);
+                  } else {
+                    $(".field-' . Html::getInputId($model, $attribute) . '").find(".help-block").empty();
+                    $(".field-' . Html::getInputId($model, $attribute) . '").removeClass("has-error");
+                    $(this).find(".fileapi-files").append(uiEvt.result);
+                  }
+               }'),
+           ],
+           'settings' => [
+               'url' => yii\helpers\Url::toRoute([$attribute . '-upload']),
+               'imageSize' => $model->getFileRules($attribute)['imageSize'],
+               'multiple' => true,
+               'duplicate' => true
+           ]
+       ])
+       ->hint($model->getFileRulesDescription($attribute), [
+           'class' => 'fileapi-rules'
+       ]
+   ); ?>
+   ```
+
+2. **Template**
+
+   ```php
+   <?php
+   use yii\helpers\Html;
+   $files = $model->getFiles($attribute); $items = [];
+   ?>
+   <div id="<?= $selector; ?>" class="fileapi">
+     <div class="btn btn-default btn-small fileapi-fileapi-wrapper">
+       <div class="fileapi-browse" data-fileapi="active.hide">
+         <span class="glyphicon glyphicon-picture"></span>
+         <span><?= Yii::t('app', 'Upload')?></span>
+         <input type="file" name="<?= $inputName ?>">
+       </div>
+     </div>
+     <ul class="fileapi-files">
+     <?php foreach ($files as $file):?>
+       <?= $this->render('gallery-item', [
+               'file' => $file,
+               'model' => $model,
+               'attribute' => $attribute
+       ]); ?>
+     <?php endforeach?>
+     </ul>
+     <?= Html::hiddenInput(Html::getInputName($model, $attribute) . '[]', null, ['id' => Html::getInputId($model, $attribute)]) ?>
+   </div>
+   ```
+
+3. **Item**
+
+   ```php
+   <li>
+     <a href="<?= $file->path()?>" target="_blank"><img src="<?= $model->thumb('gallery', '80x80', $file->path())?>"></a>
+     <a class="btn btn-lg"><span class="glyphicon glyphicon-remove remove-item" data-remove-item="li"></span></a>
+     <?= Html::textInput(Html::getInputName($model, $attribute) . '[files][' . $file->id .']', $file->title, [
+         'class' => 'form-control',
+     ])?>
+   </li>
+   ```
