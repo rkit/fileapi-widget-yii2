@@ -16,7 +16,8 @@
         "source": "https://github.com/rkit/fileapi-widget-yii2"
     },
     "require": {
-        "yiisoft/yii2": "^2.0"
+        "yiisoft/yii2": "^2.0",
+        "rubaxa/fileapi": "^0.4.11"
     },
     "autoload": {
         "psr-4": {
