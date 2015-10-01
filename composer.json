@@ -1,0 +1,26 @@
+{
+    "name": "rkit/fileapi-widget-yii2",
+    "description": "FileApi widget for Yii2",
+    "keywords": ["yii2", "extension", "fileapi", "widget", "upload", "files"],
+    "homepage": "https://github.com/rkit/fileapi-widget-yii2",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Igor Romanov",
+            "email": "rkit.ru@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/rkit/fileapi-widget-yii2/issues?state=open",
+        "source": "https://github.com/rkit/fileapi-widget-yii2"
+    },
+    "require": {
+        "yiisoft/yii2": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "rkit\\fileapi\\": ""
+        }
+    }
+}
