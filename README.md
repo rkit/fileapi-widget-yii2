@@ -174,10 +174,9 @@ use rkit\fileapi\Widget as FileApi;
 2. **Template**
 
    ```php
-   <?php
    use yii\helpers\Html;
-   $files = $model->getFiles($attribute); $items = [];
-   ?>
+   …
+   
    <div id="<?= $selector; ?>" class="fileapi">
      <div class="btn btn-default btn-small fileapi-fileapi-wrapper">
        <div class="fileapi-browse" data-fileapi="active.hide">
@@ -187,7 +186,7 @@ use rkit\fileapi\Widget as FileApi;
        </div>
      </div>
      <ul class="fileapi-files">
-     <?php foreach ($files as $file):?>
+     <?php $files = $model->getFiles($attribute); foreach ($files as $file):?>
        <?= $this->render('gallery-item', [
                'file' => $file,
                'model' => $model,
