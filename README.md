@@ -15,7 +15,7 @@ use rkit\fileapi\Widget as FileApi;
 …
 <?= $form->field($model, $attribute, ['template' => "{label}\n{error}\n{input}\n{hint}"])
     ->widget(FileApi::className(), [
-        'template' => '@app/modules/admin/views/shared/files/image-template',
+        'template' => '@app/path/to/template',
         'callbacks' => [
             'select' => new JsExpression('function (evt, ui) {
                …
@@ -47,7 +47,7 @@ use rkit\fileapi\Widget as FileApi;
    …
    <?= $form->field($model, $attribute, ['template' => "{label}\n{error}\n{input}\n{hint}"])
        ->widget(FileApi::className(), [
-           'template' => '@app/modules/admin/views/shared/files/image-template',
+           'template' => '@app/path/to/template',
            'callbacks' => [
                'select' => new JsExpression('function (evt, ui) {
                   var ufile = ui.files[0],
@@ -140,7 +140,7 @@ use rkit\fileapi\Widget as FileApi;
 
    <?= $form->field($model, $attribute, ['template' => "{error}\n{input}\n{hint}"])
        ->widget(FileApi::className(), [
-           'template' => '@app/modules/admin/views/shared/files/gallery-template',
+           'template' => '@app/path/to/template',
            'preview' => false,
            'callbacks' => [
                'select' => new JsExpression('function (evt, ui) {
@@ -176,7 +176,7 @@ use rkit\fileapi\Widget as FileApi;
    ```php
    use yii\helpers\Html;
    …
-   
+
    <div id="<?= $selector; ?>" class="fileapi">
      <div class="btn btn-default btn-small fileapi-fileapi-wrapper">
        <div class="fileapi-browse" data-fileapi="active.hide">
