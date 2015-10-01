@@ -209,3 +209,7 @@ use rkit\fileapi\Widget as FileApi;
      ])?>
    </li>
    ```
+
+## Theme for bootstrap
+
+See in [assets/css/style.css](assets/css/style.css)
