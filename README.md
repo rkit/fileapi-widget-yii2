@@ -38,7 +38,7 @@ use rkit\fileapi\Widget as FileApi;
 ?>
 ```
 
-### Basic usage with [FileMananger](https://github.com/rkit/filemanager-yii2)
+### Basic usage with [FileManager](https://github.com/rkit/filemanager-yii2)
 
 1. **Form**
 
@@ -130,7 +130,7 @@ use rkit\fileapi\Widget as FileApi;
    </div>
    ```
 
-### Gallery with [FileMananger](https://github.com/rkit/filemanager-yii2)
+### Gallery with [FileManager](https://github.com/rkit/filemanager-yii2)
 
 1. **Form**
 
