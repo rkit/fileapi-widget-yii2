@@ -32,20 +32,6 @@ use rkit\fileapi\Widget as FileApi;
 ?>
 ```
 
-### Example usage with [FileManager](https://github.com/rkit/filemanager-yii2)
-
-1. [Form Element](https://github.com/rkit/bootstrap-yii2/blob/master/modules/admin/views/shared/files/image/input.php)
-
-2. [Template](https://github.com/rkit/bootstrap-yii2/blob/master/modules/admin/views/shared/files/image/template.php)
-
-### Example gallery usage with [FileManager](https://github.com/rkit/filemanager-yii2)
-
-1. [Form Element](https://github.com/rkit/bootstrap-yii2/blob/master/modules/admin/views/shared/files/gallery/input.php)
-
-2. [Template](https://github.com/rkit/bootstrap-yii2/blob/master/modules/admin/views/shared/files/gallery/template.php)
-
-3. [Template Item](https://github.com/rkit/bootstrap-yii2/blob/master/modules/admin/views/shared/files/gallery/item.php)
-
 ## Theme for Bootstrap 3
 
 See in [assets/css/style.css](assets/css/style.css)
